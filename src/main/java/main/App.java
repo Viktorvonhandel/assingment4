@@ -196,15 +196,16 @@ public class App {
 
                 case 0:
                     exit = true;
+                    System.out.println("Kiitos ohjelman käytöstä.");
                     break;
 
                 default:
                     System.out.println("Virheellinen syöte!");
             }
         }
-
+        sc.nextLine();
         sc.close();
-        System.out.println("Kiitos ohjelman käytöstä.");
+        
     }
 
     private static Student findStudent(String name, ArrayList<Student> students) {
