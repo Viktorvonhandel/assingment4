@@ -101,7 +101,7 @@ public class App {
                 sc.nextLine();
                 continue;
             }
-            sc.nextLine(); // Kuluta rivinvaihto
+            sc.nextLine();
 
             switch (choice) {
                 case 1:
@@ -202,8 +202,8 @@ public class App {
                     break;
 
                 case 0:
-                    sc.close();
                     System.out.println("Kiitos ohjelman käytöstä.");
+                    sc.nextLine();
                     exit = true;
                     break;
 
@@ -211,9 +211,9 @@ public class App {
                     System.out.println("Syöte oli väärä!");
             }
         }
-         
+        sc.close();
     }
-
+     
     private static Student findStudent(String name, ArrayList<Student> students) {
         for (Student student : students) {
             if (student != null && student.getStudentName().equalsIgnoreCase(name)) {
