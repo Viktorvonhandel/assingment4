@@ -150,7 +150,7 @@ public class App {
                     break;
 
                 case 4:
-                    System.out.println("Opiskelijat:");
+                    
                     for (int i = 0; i < students.size(); i++) {
                         Student s = students.get(i);
                         System.out.println(i + ": " + s.getStudentName());
@@ -210,7 +210,7 @@ public class App {
                     System.out.println("Syöte oli väärä!");
             }
         }
-        sc.close();
+        sc.close(); // Siirretty tähän kohtaan, jotta suljemme Scannerin vasta ohjelman lopussa
     }
 
     private static Student findStudent(String name, ArrayList<Student> students) {
@@ -251,4 +251,5 @@ public class App {
         }
     }
 }
+
 
