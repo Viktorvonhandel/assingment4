@@ -86,7 +86,7 @@ public class App {
         boolean exit = false;
         ArrayList<Student> students = new ArrayList<>();
         Calculator calculator = new Calculator();
-
+        sc.nextLine();
         while (!exit) {
             System.out.println("1) Lisää opiskelija, 2) Listaa opiskelijat, 3) Lisää opiskelijalle suorite, " +
             "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, " +
@@ -102,7 +102,6 @@ public class App {
                     continue;
                 }
                 sc.nextLine(); 
-                
                 switch (choice) {
                 case 1:
                     System.out.println("Anna opiskelijan nimi? ");
