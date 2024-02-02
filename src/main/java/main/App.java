@@ -195,9 +195,10 @@ public class App {
                     break;
 
                 case 0:
-                    exit = true;
                     System.out.println("Kiitos ohjelman käytöstä.");
+                    exit = true;
                     break;
+
 
                 default:
                     System.out.println("Virheellinen syöte!");
