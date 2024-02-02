@@ -93,122 +93,116 @@ public class App {
                     "6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
                     "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
 
-            int choice;
-            if (sc.hasNextInt()) {
-                choice = sc.nextInt();
+            if (sc.hasNext()) {
+                int choice;
+                String stringInput = sc.nextLine();
+                choice = Integer.parseInt(stringInput);
+
+                switch (choice) {
+                    case 1:
+                        System.out.println("Anna opiskelijan nimi? ");
+                        String studentName = sc.nextLine();
+                        System.out.println("Anna opiskelijan opiskelijanumero: ");
+                        int studentCode = Integer.parseInt(sc.nextLine());
+                        Student student = new Student(studentName, studentCode);
+                        students.add(student);
+                        break;
+
+                    case 2:
+                        System.out.println("Opiskelijat:");
+                        for (int i = 0; i < students.size(); i++) {
+                            Student s = students.get(i);
+                            System.out.println(s.getStudentCode() + ": " + s.getStudentName());
+                        }
+                        break;
+
+                    case 3:
+                        System.out.println("Opiskelijat:");
+                        for (int i = 0; i < students.size(); i++) {
+                            Student s = students.get(i);
+                            System.out.println(i + ": " + s.getStudentName());
+                        }
+
+                        System.out.println("Mille opiskelijalle suorite lisätään? ");
+                        int selectedStudentIndex = Integer.parseInt(sc.nextLine());
+
+                        if (selectedStudentIndex >= 0 && selectedStudentIndex < students.size()) {
+                            Student selectedStudent = students.get(selectedStudentIndex);
+
+                            System.out.println("Mille kurssille suorite lisätään? ");
+                            String courseName = sc.nextLine();
+
+                            System.out.println("Mikä arvosana kurssille annetaan? ");
+                            int grade = Integer.parseInt(sc.nextLine());
+
+                            selectedStudent.addGrade(courseName, grade);
+
+                        } else {
+                            System.out.println("Virheellinen opiskelijan indeksi.");
+                        }
+                        break;
+
+                    case 4:
+                        System.out.println("Opiskelijat:");
+                        for (int i = 0; i < students.size(); i++) {
+                            Student s = students.get(i);
+                            System.out.println(i + ": " + s.getStudentName());
+                        }
+                        System.out.println("Minkä opiskelijan suoritteet listataan? ");
+                        int selectedStudentIndexForGrades = Integer.parseInt(sc.nextLine());
+
+                        if (selectedStudentIndexForGrades >= 0 && selectedStudentIndexForGrades < students.size()) {
+                            Student selectedStudentForGrades = students.get(selectedStudentIndexForGrades);
+
+                            for (Grade grade : selectedStudentForGrades.getGrades()) {
+                                System.out.println(grade);
+                            }
+                        } else {
+                            System.out.println("Virheellinen opiskelijan indeksi.");
+                        }
+                        break;
+
+                    case 5:
+                        System.out.println("Opiskelijat:");
+                        for (int i = 0; i < students.size(); i++) {
+                            Student s = students.get(i);
+                            System.out.println(i + ": " + s.getStudentName());
+                        }
+                        System.out.println("Minkä opiskelijan suoritteiden keskiarvo lasketaan? ");
+                        int selectedStudentIndexForAverage = Integer.parseInt(sc.nextLine());
+
+                        if (selectedStudentIndexForAverage >= 0 && selectedStudentIndexForAverage < students.size()) {
+                            Student selectedStudentForAverage = students.get(selectedStudentIndexForAverage);
+                            double average = calculator.getAverageGrade(selectedStudentForAverage);
+                            System.out.println("Keskiarvo on " + average);
+                        } else {
+                            System.out.println("Virheellinen opiskelijan indeksi.");
+                        }
+                        break;
+
+                    case 6:
+                        System.out.println("Sorgen, ei pyge\n");
+                        break;
+
+                    case 7:
+                        saveToFile(students);
+                        break;
+
+                    case 8:
+                        loadFromFile(students);
+                        break;
+
+                    case 0:
+                        System.out.println("Kiitos ohjelman käytöstä.");
+                        exit = true;
+                        break;
+
+                    default:
+                        System.out.println("Syöte oli väärä!");
+                }
             } else {
                 System.out.println("Virheellinen syöte, yritä uudelleen.");
-                sc.nextLine();
-                continue;
-            }
-            sc.nextLine();
-
-            switch (choice) {
-                case 1:
-                    System.out.println("Anna opiskelijan nimi? ");
-                    String studentName = sc.nextLine();
-                    System.out.println("Anna opiskelijan opiskelijanumero: ");
-                    int studentCode = sc.nextInt();
-                    sc.nextLine(); // Kuluta rivinvaihto
-                    Student student = new Student(studentName, studentCode);
-                    students.add(student);
-                    break;
-
-                case 2:
-                    System.out.println("Opiskelijat:");
-                    for (int i = 0; i < students.size(); i++) {
-                        Student s = students.get(i);
-                        System.out.println(s.getStudentCode() + ": " + s.getStudentName());
-                    }
-                    break;
-
-                case 3:
-                    System.out.println("Opiskelijat:");
-                    for (int i = 0; i < students.size(); i++) {
-                        Student s = students.get(i);
-                        System.out.println(i + ": " + s.getStudentName());
-                    }
-
-                    System.out.println("Mille opiskelijalle suorite lisätään? ");
-                    int selectedStudentIndex = sc.nextInt();
-                    sc.nextLine();
-
-                    if (selectedStudentIndex >= 0 && selectedStudentIndex < students.size()) {
-                        Student selectedStudent = students.get(selectedStudentIndex);
-
-                        System.out.println("Mille kurssille suorite lisätään? ");
-                        String courseName = sc.nextLine();
-
-                        System.out.println("Mikä arvosana kurssille annetaan? ");
-                        int grade = sc.nextInt();
-
-                        selectedStudent.addGrade(courseName, grade);
-
-                    } else {
-                        System.out.println("Virheellinen opiskelijan indeksi.");
-                    }
-                    break;
-
-                case 4:
-                    
-                    for (int i = 0; i < students.size(); i++) {
-                        Student s = students.get(i);
-                        System.out.println(i + ": " + s.getStudentName());
-                    }
-                    System.out.println("Minkä opiskelijan suoritteet listataan? ");
-                    int selectedStudentIndexForGrades = sc.nextInt();
-                    sc.nextLine();
-
-                    if (selectedStudentIndexForGrades >= 0 && selectedStudentIndexForGrades < students.size()) {
-                        Student selectedStudentForGrades = students.get(selectedStudentIndexForGrades);
-
-                        for (Grade grade : selectedStudentForGrades.getGrades()) {
-                            System.out.println(grade);
-                        }
-                    } else {
-                        System.out.println("Virheellinen opiskelijan indeksi.");
-                    }
-                    break;
-
-                case 5:
-                    System.out.println("Opiskelijat:");
-                    for (int i = 0; i < students.size(); i++) {
-                        Student s = students.get(i);
-                        System.out.println(i + ": " + s.getStudentName());
-                    }
-                    System.out.println("Minkä opiskelijan suoritteiden keskiarvo lasketaan? ");
-                    int selectedStudentIndexForAverage = sc.nextInt();
-                    sc.nextLine(); // Kuluta rivinvaihto
-
-                    if (selectedStudentIndexForAverage >= 0 && selectedStudentIndexForAverage < students.size()) {
-                        Student selectedStudentForAverage = students.get(selectedStudentIndexForAverage);
-                        double average = calculator.getAverageGrade(selectedStudentForAverage);
-                        System.out.println("Keskiarvo on " + average);
-                    } else {
-                        System.out.println("Virheellinen opiskelijan indeksi.");
-                    }
-                    break;
-
-                case 6:
-                    System.out.println("Sorgen, ei pyge\n");
-                    break;
-
-                case 7:
-                    saveToFile(students);
-                    break;
-
-                case 8:
-                    loadFromFile(students);
-                    break;
-
-                case 0:
-                    System.out.println("Kiitos ohjelman käytöstä.");
-                    sc.nextLine();
-                    exit = true;
-                    break;
-
-                default:
-                    System.out.println("Syöte oli väärä!");
+                sc.nextLine(); // Kuluta rivinvaihto
             }
         }
         sc.close();
