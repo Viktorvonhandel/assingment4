@@ -82,6 +82,24 @@ class Calculator {
         }
         return sum / grades.size();
     }
+    public double getMedianGrade(Student student) {
+        ArrayList<Grade> grades = student.getGrades();
+        if (grades.isEmpty()) {
+            return 0.0;
+        }
+
+        Collections.sort(grades, (g1, g2) -> Integer.compare(g1.getCourseGrade(), g2.getCourseGrade()));
+
+        int size = grades.size();
+        if (size % 2 == 0) {
+            int middle1 = size / 2 - 1;
+            int middle2 = size / 2;
+            return (grades.get(middle1).getCourseGrade() + grades.get(middle2).getCourseGrade()) / 2.0;
+        } else {
+            int middle = size / 2;
+            return grades.get(middle).getCourseGrade();
+        }
+    }
 }
 
 public class App {
@@ -182,7 +200,20 @@ public class App {
                         break;
 
                     case 6:
-                        System.out.println("Sorgen, ei pyge\n");
+                        for (int i = 0; i < students.size(); i++) {
+                            Student s = students.get(i);
+                            System.out.println(i + ": " + s.getStudentName());
+                        }
+                        System.out.println("Minkä opiskelijan suoritteiden mediaani lasketaan? ");
+                        int selectedStudentIndexForMedian = Integer.parseInt(sc.nextLine());
+                    
+                        if (selectedStudentIndexForMedian >= 0 && selectedStudentIndexForMedian < students.size()) {
+                            Student selectedStudentForMedian = students.get(selectedStudentIndexForMedian);
+                            double median = calculator.getMedianGrade(selectedStudentForMedian);
+                            System.out.println("Mediaani on " + median);
+                        } else {
+                            System.out.println("Virheellinen opiskelijan indeksi.");
+                        }
                         break;
 
                     case 7:
