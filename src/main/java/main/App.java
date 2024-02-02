@@ -31,7 +31,6 @@ class Student implements Serializable {
     public void addGrade(String courseName, int courseGrade) {
         Grade newGrade = new Grade(courseName, courseGrade);
         studentGrades.add(newGrade);
-        System.out.println("Kurssisuoritus lisätty opiskelijalle " + studentName + ": " + newGrade);
     }
 
     public ArrayList<Grade> getGrades() {
@@ -110,6 +109,7 @@ public class App {
                     int studentCode = sc.nextInt();
                     Student student = new Student(studentName, studentCode);
                     students.add(student);
+                    sc.nextLine();
 
                     break;
 
@@ -148,7 +148,6 @@ public class App {
                     break;
 
                 case 4:
-                    System.out.println("Opiskelijat:");
                     for (int i = 0; i < students.size(); i++) {
                         Student s = students.get(i);
                         System.out.println(i + ": " + s.getStudentName());
