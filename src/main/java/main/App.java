@@ -92,12 +92,6 @@ public class App {
             "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, " +
             "6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
             "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
-
-            while (!exit) {
-                System.out.println("1) Lisää opiskelija, 2) Listaa opiskelijat, 3) Lisää opiskelijalle suorite, " +
-                        "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, " +
-                        "6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
-                        "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
             
                 int choice;
                 if (sc.hasNextInt()) {
@@ -217,7 +211,6 @@ public class App {
             }
         }
         sc.close();
-        
     }
 
     private static Student findStudent(String name, ArrayList<Student> students) {
