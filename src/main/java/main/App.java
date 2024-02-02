@@ -88,18 +88,19 @@ public class App {
         Calculator calculator = new Calculator();
 
         while (!exit) {
-            System.out.println("1) Lisää opiskelija, 2) Listaa opiskelijat, 3) Lisää opiskelijalle suorite " +
-                    "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, 6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
-                    "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
+            System.out.println("1) Lisää opiskelija, 2) Listaa opiskelijat, 3) Lisää opiskelijalle suorite, " +
+            "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, " +
+            "6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
+            "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
 
             int choice = sc.nextInt();
             sc.nextLine();
 
             switch (choice) {
                 case 1:
-                    System.out.print("\nAnna opiskelijan nimi: ");
+                    System.out.print("Anna opiskelijan nimi: ");
                     String studentName = sc.nextLine();
-                    System.out.print("\nAnna opiskelijan opiskelijanumero: ");
+                    System.out.print("Anna opiskelijan opiskelijanumero: ");
                     int studentCode = sc.nextInt();
                     Student student = new Student(studentName, studentCode);
                     students.add(student);
