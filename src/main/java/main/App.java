@@ -98,9 +98,9 @@ public class App {
 
             switch (choice) {
                 case 1:
-                    System.out.print("Anna opiskelijan nimi: ");
+                    System.out.println("Anna opiskelijan nimi: ");
                     String studentName = sc.nextLine();
-                    System.out.print("Anna opiskelijan opiskelijanumero: ");
+                    System.out.println("Anna opiskelijan opiskelijanumero: ");
                     int studentCode = sc.nextInt();
                     Student student = new Student(studentName, studentCode);
                     students.add(student);
