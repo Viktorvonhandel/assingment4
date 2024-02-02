@@ -195,6 +195,7 @@ public class App {
                     break;
 
                 case 0:
+                    sc.nextLine();
                     exit = true;
                     break;
 
