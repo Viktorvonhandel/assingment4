@@ -221,18 +221,21 @@ public class App {
     private static void saveToFile(ArrayList<Student> students) {
         try (FileWriter writer = new FileWriter("students.txt")) {
             for (Student student : students) {
-                writer.write(student.getStudentCode() + ": " + student.getStudentName() + "\n");
-
+                writer.write(student.getStudentCode() + ":" + student.getStudentName() + "\n");
+    
                 for (Grade grade : student.getGrades()) {
-                    writer.write("\t" + grade.getCourseName() + ": " + grade.getCourseGrade() + "\n");
+                    writer.write(grade.getCourseName() + ":" + grade.getCourseGrade() + "\n");
                 }
+    
+                // Erota opiskelijat tyhjällä rivillä
+                writer.write("\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Tiedostoon tallentaminen epäonnistui.");
         }
     }
-
+    
     private static void loadFromFile(ArrayList<Student> students) {
         try (BufferedReader reader = new BufferedReader(new FileReader("students.txt"))) {
             String line;
@@ -240,26 +243,30 @@ public class App {
             Student currentStudent = null;
     
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(":");
-                int studentCode;
-                String studentName;
-    
-                // Tarkista, onko opiskelijan tiedot vai suoritukset
-                if (parts.length == 2) {
-                    // Opiskelijan tiedot
-                    studentCode = Integer.parseInt(parts[0].trim());
-                    studentName = parts[1].trim();
-                    currentStudent = new Student(studentName, studentCode);
-                    students.add(currentStudent);
-                } else if (parts.length == 1 && currentStudent != null) {
-                    // Suoritus
-                    String[] gradeParts = parts[0].split(":");
-                    String courseName = gradeParts[0].trim();
-                    int courseGrade = Integer.parseInt(gradeParts[1].trim());
-                    currentStudent.addGrade(courseName, courseGrade);
+                if (!line.trim().isEmpty()) {
+                    String[] parts = line.split(":");
+                    if (parts.length >= 2) {
+                        try {
+                            if (currentStudent == null) {
+                                int studentCode = Integer.parseInt(parts[0].trim());
+                                currentStudent = new Student(parts[1].trim(), studentCode);
+                                students.add(currentStudent);
+                            } else {
+                                String courseName = parts[0].trim();
+                                int courseGrade = Integer.parseInt(parts[1].trim());
+                                currentStudent.addGrade(courseName, courseGrade);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Virheellinen opiskelijanumero tai arvosana: " + line);
+                        }
+                    } else {
+                        System.out.println("Virheellinen rivi: " + line);
+                    }
+                } else {
+                    currentStudent = null;
                 }
             }
-        } catch (IOException | NumberFormatException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Tiedoston lukeminen epäonnistui.");
         }
