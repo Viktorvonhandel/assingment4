@@ -1,11 +1,11 @@
 package main;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 class Student implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -31,6 +31,7 @@ class Student implements Serializable {
     public void addGrade(String courseName, int courseGrade) {
         Grade newGrade = new Grade(courseName, courseGrade);
         studentGrades.add(newGrade);
+        System.out.println("Kurssisuoritus lisätty opiskelijalle " + studentName + ": " + newGrade);
     }
 
     public ArrayList<Grade> getGrades() {
@@ -85,32 +86,32 @@ public class App {
         boolean exit = false;
         ArrayList<Student> students = new ArrayList<>();
         Calculator calculator = new Calculator();
-        
+
         while (!exit) {
             System.out.println("1) Lisää opiskelija, 2) Listaa opiskelijat, 3) Lisää opiskelijalle suorite, " +
-            "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, " +
-            "6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
-            "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
-            
-                int choice;
-                if (sc.hasNextInt()) {
-                    choice = sc.nextInt();
-                } else {
-                    System.out.println("Virheellinen syöte, yritä uudelleen.");
-                    sc.nextLine();
-                    continue;
-                }
-                sc.nextLine(); 
-                switch (choice) {
+                    "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, " +
+                    "6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
+                    "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
+
+            int choice;
+            if (sc.hasNextInt()) {
+                choice = sc.nextInt();
+            } else {
+                System.out.println("Virheellinen syöte, yritä uudelleen.");
+                sc.nextLine();
+                continue;
+            }
+            sc.nextLine(); // Kuluta rivinvaihto
+
+            switch (choice) {
                 case 1:
                     System.out.println("Anna opiskelijan nimi? ");
                     String studentName = sc.nextLine();
                     System.out.println("Anna opiskelijan opiskelijanumero: ");
                     int studentCode = sc.nextInt();
+                    sc.nextLine(); // Kuluta rivinvaihto
                     Student student = new Student(studentName, studentCode);
                     students.add(student);
-                    sc.nextLine();
-
                     break;
 
                 case 2:
@@ -122,6 +123,7 @@ public class App {
                     break;
 
                 case 3:
+                    System.out.println("Opiskelijat:");
                     for (int i = 0; i < students.size(); i++) {
                         Student s = students.get(i);
                         System.out.println(i + ": " + s.getStudentName());
@@ -129,7 +131,7 @@ public class App {
 
                     System.out.println("Mille opiskelijalle suorite lisätään? ");
                     int selectedStudentIndex = sc.nextInt();
-                    sc.nextLine(); 
+                    sc.nextLine();
 
                     if (selectedStudentIndex >= 0 && selectedStudentIndex < students.size()) {
                         Student selectedStudent = students.get(selectedStudentIndex);
@@ -148,13 +150,14 @@ public class App {
                     break;
 
                 case 4:
+                    System.out.println("Opiskelijat:");
                     for (int i = 0; i < students.size(); i++) {
                         Student s = students.get(i);
                         System.out.println(i + ": " + s.getStudentName());
                     }
                     System.out.println("Minkä opiskelijan suoritteet listataan? ");
                     int selectedStudentIndexForGrades = sc.nextInt();
-                    sc.nextLine(); 
+                    sc.nextLine();
 
                     if (selectedStudentIndexForGrades >= 0 && selectedStudentIndexForGrades < students.size()) {
                         Student selectedStudentForGrades = students.get(selectedStudentIndexForGrades);
@@ -175,7 +178,7 @@ public class App {
                     }
                     System.out.println("Minkä opiskelijan suoritteiden keskiarvo lasketaan? ");
                     int selectedStudentIndexForAverage = sc.nextInt();
-                    sc.nextLine();  // Tyhjennetään rivinvaihto
+                    sc.nextLine(); // Kuluta rivinvaihto
 
                     if (selectedStudentIndexForAverage >= 0 && selectedStudentIndexForAverage < students.size()) {
                         Student selectedStudentForAverage = students.get(selectedStudentIndexForAverage);
@@ -199,7 +202,7 @@ public class App {
                     break;
 
                 case 0:
-                    System.out.print("Kiitos ohjelman käytöstä.");
+                    System.out.println("Kiitos ohjelman käytöstä.");
                     exit = true;
                     break;
 
@@ -234,17 +237,18 @@ public class App {
         try (BufferedReader reader = new BufferedReader(new FileReader("students.txt"))) {
             String line;
             students.clear();
-    
+
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");
                 int studentCode = Integer.parseInt(parts[0].trim());
                 Student student = new Student(parts[1].trim(), studentCode);
                 students.add(student);
             }
-    
+
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
             System.out.println("Tiedoston lukeminen epäonnistui.");
         }
     }
 }
+
