@@ -215,6 +215,7 @@ public class App {
                             System.out.println("Virheellinen opiskelijan indeksi.");
                         }
                         break;
+                        
 
                     case 7:
                         saveToFile(students);
