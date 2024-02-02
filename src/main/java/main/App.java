@@ -204,7 +204,6 @@ public class App {
                     System.out.println("Virheellinen syöte!");
             }
         }
-        sc.nextLine();
         sc.close();
         
     }
