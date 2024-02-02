@@ -31,7 +31,7 @@ class Student implements Serializable {
     public void addGrade(String courseName, int courseGrade) {
         Grade newGrade = new Grade(courseName, courseGrade);
         studentGrades.add(newGrade);
-        System.out.println("Kurssisuoritus lisätty opiskelijalle " + studentName + ": " + newGrade);
+       
     }
 
     public ArrayList<Grade> getGrades() {
@@ -57,6 +57,10 @@ class Grade implements Serializable {
 
     public int getCourseGrade() {
         return courseGrade;
+    }
+
+    public String getCourseName() {
+        return courseName;
     }
 
     @Override
@@ -117,7 +121,7 @@ public class App {
                         break;
 
                     case 3:
-                        System.out.println("Opiskelijat:");
+                        
                         for (int i = 0; i < students.size(); i++) {
                             Student s = students.get(i);
                             System.out.println(i + ": " + s.getStudentName());
@@ -132,7 +136,7 @@ public class App {
                             System.out.println("Mille kurssille suorite lisätään? ");
                             String courseName = sc.nextLine();
 
-                            System.out.println("Mikä arvosana kurssille annetaan? ");
+                            System.out.println("Mikä arvosana kurssille lisätään? ");
                             int grade = Integer.parseInt(sc.nextLine());
 
                             selectedStudent.addGrade(courseName, grade);
@@ -143,25 +147,22 @@ public class App {
                         break;
 
                     case 4:
-                        System.out.println("Opiskelijat:");
                         for (int i = 0; i < students.size(); i++) {
                             Student s = students.get(i);
                             System.out.println(i + ": " + s.getStudentName());
                         }
                         System.out.println("Minkä opiskelijan suoritteet listataan? ");
                         int selectedStudentIndexForGrades = Integer.parseInt(sc.nextLine());
-
+                    
                         if (selectedStudentIndexForGrades >= 0 && selectedStudentIndexForGrades < students.size()) {
                             Student selectedStudentForGrades = students.get(selectedStudentIndexForGrades);
-
                             for (Grade grade : selectedStudentForGrades.getGrades()) {
-                                System.out.println(grade);
+                                System.out.println(grade.getCourseName() + grade.getCourseGrade());
                             }
                         } else {
                             System.out.println("Virheellinen opiskelijan indeksi.");
                         }
                         break;
-
                     case 5:
                         System.out.println("Opiskelijat:");
                         for (int i = 0; i < students.size(); i++) {
@@ -202,7 +203,7 @@ public class App {
                 }
             } else {
                 System.out.println("Virheellinen syöte, yritä uudelleen.");
-                sc.nextLine(); // Kuluta rivinvaihto
+                sc.nextLine(); 
             }
         }
         sc.close();
