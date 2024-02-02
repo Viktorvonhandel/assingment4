@@ -147,22 +147,22 @@ public class App {
                         break;
 
                     case 4:
-                    for (int i = 0; i < students.size(); i++) {
-                        Student s = students.get(i);
-                        System.out.println(i + ": " + s.getStudentName());
-                    }
-                    System.out.println("Minkä opiskelijan suoritteet listataan? ");
-                    int selectedStudentIndexForGrades = Integer.parseInt(sc.nextLine());
-                
-                    if (selectedStudentIndexForGrades >= 0 && selectedStudentIndexForGrades < students.size()) {
-                        Student selectedStudentForGrades = students.get(selectedStudentIndexForGrades);
-                        for (Grade grade : selectedStudentForGrades.getGrades()) {
-                            System.out.println(grade.getCourseName() + ": " + grade.getCourseGrade());
+                        for (int i = 0; i < students.size(); i++) {
+                            Student s = students.get(i);
+                            System.out.println(i + ": " + s.getStudentName());
                         }
-                    } else {
-                        System.out.println("Virheellinen opiskelijan indeksi.");
-                    }
-                    break;
+                        System.out.println("Minkä opiskelijan suoritteet listataan? ");
+                        int selectedStudentIndexForGrades = Integer.parseInt(sc.nextLine());
+                    
+                        if (selectedStudentIndexForGrades >= 0 && selectedStudentIndexForGrades < students.size()) {
+                            Student selectedStudentForGrades = students.get(selectedStudentIndexForGrades);
+                            for (Grade grade : selectedStudentForGrades.getGrades()) {
+                                System.out.println(grade.getCourseName() + ": " + grade.getCourseGrade());
+                            }
+                        } else {
+                            System.out.println("Virheellinen opiskelijan indeksi.");
+                        }
+                        break;
                     case 5:
                         
                         for (int i = 0; i < students.size(); i++) {
@@ -217,11 +217,15 @@ public class App {
         }
         return null;
     }
-
+    
     private static void saveToFile(ArrayList<Student> students) {
         try (FileWriter writer = new FileWriter("students.txt")) {
             for (Student student : students) {
                 writer.write(student.getStudentCode() + ": " + student.getStudentName() + "\n");
+
+                for (Grade grade : student.getGrades()) {
+                    writer.write("\t" + grade.getCourseName() + ": " + grade.getCourseGrade() + "\n");
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -233,14 +237,28 @@ public class App {
         try (BufferedReader reader = new BufferedReader(new FileReader("students.txt"))) {
             String line;
             students.clear();
-
+            Student currentStudent = null;
+    
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");
-                int studentCode = Integer.parseInt(parts[0].trim());
-                Student student = new Student(parts[1].trim(), studentCode);
-                students.add(student);
+                int studentCode;
+                String studentName;
+    
+                // Tarkista, onko opiskelijan tiedot vai suoritukset
+                if (parts.length == 2) {
+                    // Opiskelijan tiedot
+                    studentCode = Integer.parseInt(parts[0].trim());
+                    studentName = parts[1].trim();
+                    currentStudent = new Student(studentName, studentCode);
+                    students.add(currentStudent);
+                } else if (parts.length == 1 && currentStudent != null) {
+                    // Suoritus
+                    String[] gradeParts = parts[0].split(":");
+                    String courseName = gradeParts[0].trim();
+                    int courseGrade = Integer.parseInt(gradeParts[1].trim());
+                    currentStudent.addGrade(courseName, courseGrade);
+                }
             }
-
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
             System.out.println("Tiedoston lukeminen epäonnistui.");
