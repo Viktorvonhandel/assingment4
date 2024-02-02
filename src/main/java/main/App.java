@@ -96,10 +96,10 @@ public class App {
                 int choice;
                 if (sc.hasNextInt()) {
                     choice = sc.nextInt();
-                    sc.nextLine();
+                    sc.nextLine(); // Tyhjennä rivinvaihto
                 } else {
                     System.out.println("Virheellinen syöte, yritä uudelleen.");
-                    sc.nextLine(); 
+                    sc.nextLine(); // Tyhjennä rivinvaihto
                     continue;
                 }
             
