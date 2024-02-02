@@ -89,21 +89,27 @@ public class App {
 
         while (!exit) {
             System.out.println("1) Lisää opiskelija, 2) Listaa opiskelijat, 3) Lisää opiskelijalle suorite, " +
-                "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, " +
-                "6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
-                "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
-        
-            int choice;
-            if (sc.hasNextInt()) {
-                choice = sc.nextInt();
-                sc.nextLine();
-            } else {
-                sc.nextLine();
-                System.out.println("Virheellinen syöte, yritä uudelleen.");
-                continue;
-            }
-        
-            switch (choice) {
+            "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, " +
+            "6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
+            "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
+
+            while (!exit) {
+                System.out.println("1) Lisää opiskelija, 2) Listaa opiskelijat, 3) Lisää opiskelijalle suorite, " +
+                        "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, " +
+                        "6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
+                        "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
+            
+                int choice;
+                if (sc.hasNextInt()) {
+                    choice = sc.nextInt();
+                    sc.nextLine();
+                } else {
+                    System.out.println("Virheellinen syöte, yritä uudelleen.");
+                    sc.nextLine(); 
+                    continue;
+                }
+            
+                switch (choice) {
                 case 1:
                     System.out.println("Anna opiskelijan nimi? ");
                     String studentName = sc.nextLine();
