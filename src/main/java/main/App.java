@@ -157,7 +157,7 @@ public class App {
                         if (selectedStudentIndexForGrades >= 0 && selectedStudentIndexForGrades < students.size()) {
                             Student selectedStudentForGrades = students.get(selectedStudentIndexForGrades);
                             for (Grade grade : selectedStudentForGrades.getGrades()) {
-                                System.out.println(grade.getCourseName() + grade.getCourseGrade());
+                                System.out.println(grade.getCourseName()+ ": " + grade.getCourseGrade());
                             }
                         } else {
                             System.out.println("Virheellinen opiskelijan indeksi.");
