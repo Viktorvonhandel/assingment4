@@ -202,6 +202,7 @@ public class App {
                     break;
 
                 case 0:
+                    sc.close();
                     System.out.println("Kiitos ohjelman käytöstä.");
                     exit = true;
                     break;
@@ -210,7 +211,7 @@ public class App {
                     System.out.println("Syöte oli väärä!");
             }
         }
-        sc.close(); // Siirretty tähän kohtaan, jotta suljemme Scannerin vasta ohjelman lopussa
+         
     }
 
     private static Student findStudent(String name, ArrayList<Student> students) {
