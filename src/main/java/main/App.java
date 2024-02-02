@@ -96,13 +96,13 @@ public class App {
                 int choice;
                 if (sc.hasNextInt()) {
                     choice = sc.nextInt();
-                    sc.nextLine(); // Tyhjennä rivinvaihto
                 } else {
                     System.out.println("Virheellinen syöte, yritä uudelleen.");
-                    sc.nextLine(); // Tyhjennä rivinvaihto
+                    sc.nextLine();
                     continue;
                 }
-            
+                sc.nextLine(); 
+                
                 switch (choice) {
                 case 1:
                     System.out.println("Anna opiskelijan nimi? ");
@@ -123,7 +123,6 @@ public class App {
                     break;
 
                 case 3:
-                    System.out.println("Opiskelijat:");
                     for (int i = 0; i < students.size(); i++) {
                         Student s = students.get(i);
                         System.out.println(i + ": " + s.getStudentName());
