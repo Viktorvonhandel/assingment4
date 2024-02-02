@@ -164,7 +164,7 @@ public class App {
                         }
                         break;
                     case 5:
-                        System.out.println("Opiskelijat:");
+                        
                         for (int i = 0; i < students.size(); i++) {
                             Student s = students.get(i);
                             System.out.println(i + ": " + s.getStudentName());
