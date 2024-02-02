@@ -90,16 +90,16 @@ public class App {
         while (!exit) {
             System.out.println("1) Lisää opiskelija, 2) Listaa opiskelijat, 3) Lisää opiskelijalle suorite " +
                     "4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, 6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, " +
-                    "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma\n");
+                    "8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
 
             int choice = sc.nextInt();
             sc.nextLine();
 
             switch (choice) {
                 case 1:
-                    System.out.print("Anna opiskelijan nimi: ");
+                    System.out.print("\nAnna opiskelijan nimi: ");
                     String studentName = sc.nextLine();
-                    System.out.print("Anna opiskelijan opiskelijanumero: ");
+                    System.out.print("\nAnna opiskelijan opiskelijanumero: ");
                     int studentCode = sc.nextInt();
                     Student student = new Student(studentName, studentCode);
                     students.add(student);
