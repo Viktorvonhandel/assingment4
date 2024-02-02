@@ -98,7 +98,7 @@ public class App {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Anna opiskelijan nimi: ");
+                    System.out.println("Anna opiskelijan nimi? ");
                     String studentName = sc.nextLine();
                     System.out.println("Anna opiskelijan opiskelijanumero: ");
                     int studentCode = sc.nextInt();
@@ -122,17 +122,17 @@ public class App {
                         System.out.println(i + ": " + s.getStudentName());
                     }
 
-                    System.out.print("Mille opiskelijalle suorite lisätään? ");
+                    System.out.println("Mille opiskelijalle suorite lisätään? ");
                     int selectedStudentIndex = sc.nextInt();
-                    sc.nextLine();  // Tyhjennetään rivinvaihto
+                    sc.nextLine(); 
 
                     if (selectedStudentIndex >= 0 && selectedStudentIndex < students.size()) {
                         Student selectedStudent = students.get(selectedStudentIndex);
 
-                        System.out.print("Mille kurssille suorite lisätään? ");
+                        System.out.println("Mille kurssille suorite lisätään? ");
                         String courseName = sc.nextLine();
 
-                        System.out.print("Mikä arvosana kurssille annetaan? ");
+                        System.out.println("Mikä arvosana kurssille annetaan? ");
                         int grade = sc.nextInt();
 
                         selectedStudent.addGrade(courseName, grade);
@@ -148,9 +148,9 @@ public class App {
                         Student s = students.get(i);
                         System.out.println(i + ": " + s.getStudentName());
                     }
-                    System.out.print("Minkä opiskelijan suoritteet listataan? ");
+                    System.out.println("Minkä opiskelijan suoritteet listataan? ");
                     int selectedStudentIndexForGrades = sc.nextInt();
-                    sc.nextLine();  // Tyhjennetään rivinvaihto
+                    sc.nextLine(); 
 
                     if (selectedStudentIndexForGrades >= 0 && selectedStudentIndexForGrades < students.size()) {
                         Student selectedStudentForGrades = students.get(selectedStudentIndexForGrades);
@@ -169,7 +169,7 @@ public class App {
                         Student s = students.get(i);
                         System.out.println(i + ": " + s.getStudentName());
                     }
-                    System.out.print("Minkä opiskelijan suoritteiden keskiarvo lasketaan? ");
+                    System.out.println("Minkä opiskelijan suoritteiden keskiarvo lasketaan? ");
                     int selectedStudentIndexForAverage = sc.nextInt();
                     sc.nextLine();  // Tyhjennetään rivinvaihto
 
@@ -183,7 +183,7 @@ public class App {
                     break;
 
                 case 6:
-                    System.out.print("Sorgen, ei pyge\n");
+                    System.out.println("Sorgen, ei pyge\n");
                     break;
 
                 case 7:
