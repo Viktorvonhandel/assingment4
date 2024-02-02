@@ -147,22 +147,22 @@ public class App {
                         break;
 
                     case 4:
-                        for (int i = 0; i < students.size(); i++) {
-                            Student s = students.get(i);
-                            System.out.println(i + ": " + s.getStudentName());
+                    for (int i = 0; i < students.size(); i++) {
+                        Student s = students.get(i);
+                        System.out.println(i + ": " + s.getStudentName());
+                    }
+                    System.out.println("Minkä opiskelijan suoritteet listataan? ");
+                    int selectedStudentIndexForGrades = Integer.parseInt(sc.nextLine());
+                
+                    if (selectedStudentIndexForGrades >= 0 && selectedStudentIndexForGrades < students.size()) {
+                        Student selectedStudentForGrades = students.get(selectedStudentIndexForGrades);
+                        for (Grade grade : selectedStudentForGrades.getGrades()) {
+                            System.out.println(grade.getCourseName() + ": " + grade.getCourseGrade());
                         }
-                        System.out.println("Minkä opiskelijan suoritteet listataan? ");
-                        int selectedStudentIndexForGrades = Integer.parseInt(sc.nextLine());
-                    
-                        if (selectedStudentIndexForGrades >= 0 && selectedStudentIndexForGrades < students.size()) {
-                            Student selectedStudentForGrades = students.get(selectedStudentIndexForGrades);
-                            for (Grade grade : selectedStudentForGrades.getGrades()) {
-                                System.out.println(grade.getCourseName()+ ": " + grade.getCourseGrade());
-                            }
-                        } else {
-                            System.out.println("Virheellinen opiskelijan indeksi.");
-                        }
-                        break;
+                    } else {
+                        System.out.println("Virheellinen opiskelijan indeksi.");
+                    }
+                    break;
                     case 5:
                         
                         for (int i = 0; i < students.size(); i++) {
