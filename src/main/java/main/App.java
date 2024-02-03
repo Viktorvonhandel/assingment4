@@ -6,7 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList; 
 import java.util.Scanner;
-//oo
+import java.util.Arrays;
+
 class Student implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -82,25 +83,33 @@ class Calculator {
         }
         return sum / grades.size();
     }
+
+
     public double getMedianGrade(Student student) {
         ArrayList<Grade> grades = student.getGrades();
         if (grades.isEmpty()) {
             return 0.0;
         }
 
-        Collections.sort(grades, (g1, g2) -> Integer.compare(g1.getCourseGrade(), g2.getCourseGrade()));
-
         int size = grades.size();
-        if (size % 2 == 0) {
-            int middle1 = size / 2 - 1;
-            int middle2 = size / 2;
-            return (grades.get(middle1).getCourseGrade() + grades.get(middle2).getCourseGrade()) / 2.0;
+        int middle = size / 2;
+
+        int[] gradeArray = new int[size];
+        for (int i = 0; i < size; i++) {
+            gradeArray[i] = grades.get(i).getCourseGrade();
+        }
+
+        Arrays.sort(gradeArray);
+
+        if (size % 2 == 1) {
+            return gradeArray[middle];
         } else {
-            int middle = size / 2;
-            return grades.get(middle).getCourseGrade();
+            return (gradeArray[middle - 1] + gradeArray[middle]) / 2.0;
         }
     }
 }
+    
+
 
 public class App {
     public static void main(String[] args) {
@@ -206,7 +215,7 @@ public class App {
                         }
                         System.out.println("Minkä opiskelijan suoritteiden mediaani lasketaan? ");
                         int selectedStudentIndexForMedian = Integer.parseInt(sc.nextLine());
-                    
+
                         if (selectedStudentIndexForMedian >= 0 && selectedStudentIndexForMedian < students.size()) {
                             Student selectedStudentForMedian = students.get(selectedStudentIndexForMedian);
                             double median = calculator.getMedianGrade(selectedStudentForMedian);
@@ -215,7 +224,7 @@ public class App {
                             System.out.println("Virheellinen opiskelijan indeksi.");
                         }
                         break;
-                        
+                    
 
                     case 7:
                         saveToFile(students);
@@ -258,8 +267,6 @@ public class App {
                 for (Grade grade : student.getGrades()) {
                     writer.write(grade.getCourseName() + ":" + grade.getCourseGrade() + "\n");
                 }
-    
-                // Erota opiskelijat tyhjällä rivillä
                 writer.write("\n");
             }
         } catch (IOException e) {
